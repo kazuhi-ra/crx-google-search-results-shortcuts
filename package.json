@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.5.0",
   "description": "Keyboard shortcuts for google search results",
-  "author": "Masaya Kazama <miyan@t-p.jp>",
+  "author": "kazuhi-ra",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

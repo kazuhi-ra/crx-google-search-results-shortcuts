@@ -2,6 +2,8 @@
 
 A chrome extension to add keyboard navigation for google search result.
 
+> **Note**: This is a fork of [miyaoka/crx-google-search-results-shortcuts](https://github.com/miyaoka/crx-google-search-results-shortcuts) and is maintained independently.
+
 ## Usage
 
 - J/K(Down/Up): Navigate links
