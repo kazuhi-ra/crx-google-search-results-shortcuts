@@ -17,13 +17,24 @@ import {
   searchVideo,
 } from "./searchType";
 
+const isNavigationDisabledPage = () => {
+  const params = new URL(location.href).searchParams;
+  const tbm = params.get("tbm");
+  const udm = params.get("udm");
+
+  return (
+    ["isch", "vid", "nws"].includes(tbm || "") ||
+    ["2", "3", "4"].includes(udm || "")
+  );
+};
+
 type KeyDef = [(string | string[])[], () => void | boolean];
 
 const firstKeyDefs: KeyDef[] = [
-  [["ArrowDown", "j"], () => focusNext()],
-  [["ArrowUp", "k"], () => focusPrev()],
-  [["ArrowRight", "l"], () => moveToNextPage()],
-  [["ArrowLeft", "h"], () => moveToPrevPage()],
+  [["ArrowDown", "j"], () => !isNavigationDisabledPage() && focusNext()],
+  [["ArrowUp", "k"], () => !isNavigationDisabledPage() && focusPrev()],
+  [["ArrowRight", "l"], () => !isNavigationDisabledPage() && moveToNextPage()],
+  [["ArrowLeft", "h"], () => !isNavigationDisabledPage() && moveToPrevPage()],
   [["g"], () => (isLeaderKeyActive = true)],
 ];
 
@@ -118,7 +129,9 @@ const activateKeyHandler = (isActive: boolean) => {
 };
 
 const init = () => {
-  setupFocusTarget();
+  if (!isNavigationDisabledPage()) {
+    setupFocusTarget();
+  }
   const formInputs = document.querySelectorAll("input, textarea");
 
   formInputs.forEach((el) => {
