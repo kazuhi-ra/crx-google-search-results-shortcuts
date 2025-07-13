@@ -1,31 +1,25 @@
-const defaultParams = { start: "", tbs: "", tbm: "" };
+const RESET_PARAMS = ["start", "tbs", "tbm", "udm"] as const;
 
-const changeParam = (newParams: Record<string, string>) => {
-  const url = new URL(document.location.href);
-  const params = url.searchParams;
-  Object.entries({ ...defaultParams, ...newParams }).forEach(([key, value]) =>
-    params.set(key, value),
-  );
+const updateSearchParams = (updates: Record<string, string>) => {
+  const url = new URL(location.href);
+
+  RESET_PARAMS.forEach((param) => url.searchParams.delete(param));
+
+  Object.entries(updates).forEach(([key, value]) => {
+    if (value) url.searchParams.set(key, value);
+  });
+
   location.href = url.href;
 };
-export const searchAll = () => {
-  changeParam({ tbm: "" });
-};
-export const searchImage = () => {
-  changeParam({ tbm: "isch" });
-};
-export const searchVideo = () => {
-  changeParam({ tbm: "vid" });
-};
-export const searchNews = () => {
-  changeParam({ tbm: "nws" });
-};
-export const searchVerbatim = () => {
-  changeParam({ tbs: "li:1" });
-};
+
+export const searchAll = () => updateSearchParams({});
+export const searchImage = () => updateSearchParams({ tbm: "isch" });
+export const searchVideo = () => updateSearchParams({ tbm: "vid" });
+export const searchNews = () => updateSearchParams({ tbm: "nws" });
+export const searchVerbatim = () => updateSearchParams({ tbs: "li:1" });
+
 export const searchMap = () => {
-  const params = new URL(document.location.href).searchParams;
-  const q = params.get("q");
+  const q = new URL(location.href).searchParams.get("q");
   location.href = `/maps/search/${q}`;
 };
 export const searchByTime = (id: string) => {
