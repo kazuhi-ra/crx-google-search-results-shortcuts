@@ -1,8 +1,7 @@
 import { defineManifest } from "@crxjs/vite-plugin";
 import { version } from "./package.json";
 
-export default defineManifest(() => {
-  return {
+export default defineManifest({
     manifest_version: 3,
     name: "__MSG_extName__",
     version,
@@ -218,5 +217,4 @@ export default defineManifest(() => {
         js: ["./src/content-scripts/main.ts"],
       },
     ],
-  };
 });
