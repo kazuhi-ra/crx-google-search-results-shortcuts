@@ -26,8 +26,8 @@ const getLinks = (): HTMLAnchorElement[] => {
   // get elements both of g-link and h3 for keep order
   const gLinkAndH3List = Array.from(
     document.querySelectorAll(
-      selectorList.map((selector) => `#search ${selector}`).join(`,`)
-    )
+      selectorList.map((selector) => `#search ${selector}`).join(`,`),
+    ),
   );
 
   const ignoreElementList = Array.from(
@@ -36,14 +36,14 @@ const getLinks = (): HTMLAnchorElement[] => {
         .map((wrapper) =>
           selectorList
             .map((selector) => `#search ${wrapper} ${selector}`)
-            .join(`,`)
+            .join(`,`),
         )
-        .join(`,`)
-    )
+        .join(`,`),
+    ),
   );
 
   const filteredElementList = gLinkAndH3List.filter(
-    (el) => !ignoreElementList.includes(el)
+    (el) => !ignoreElementList.includes(el),
   );
 
   // extract anchor elements
@@ -60,7 +60,7 @@ const getLinks = (): HTMLAnchorElement[] => {
       }
       return acc;
     },
-    []
+    [],
   );
 
   return anchorList as HTMLAnchorElement[];
